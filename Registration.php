@@ -12,7 +12,7 @@ if(isset($_POST['signup'])){
 		else{
             //$_POST['name'] = $name;
 			$user = fopen('user.txt', 'a+');
-			$data=fwrite($user, "$id"."|"."$pass"."|"."$pass1"."|"."$name"."|"."$utype");
+			$data=fwrite($user, "\n"."$id"."|"."$pass"."|"."$pass1"."|"."$name"."|"."$utype");
 			
 	fclose($user);
 		header('location: signin.php');
