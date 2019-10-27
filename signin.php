@@ -9,29 +9,32 @@ if(isset($_POST['login'])){
 			echo "fill all!";
 		}
 		else{
-            //$_POST['name'] = $name;
-	$read = fopen('user.txt', 'r');
-	$fetch = fgets($read);
-	fclose($read);
-
-	$user = explode("|", $fetch);
+            $name='user.txt';
+	$read = fopen($name, 'r');
 	
-	if($user[0] == $id && $user[1] == $pass){
-		if($user[4]=="admin"){
-$_SESSION['name']=$user[3];
-		header('location: AdminHome.php');
+		$fetch = fread($read, filesize($name));
+	fclose($read);
+	$lines=explode("\n", $fetch);
+	foreach ($lines as $line) {
+		$user = explode("|", $line);
+	
+		if($user[0] == $id && $user[1] == $pass){
+				if($user[4]=='Admin'){
+			$_SESSION['name']=$user[3];
+			header('location: AdminHome.php');
+		}
+		elseif($user[4]=='User')
+			{
+			$_SESSION['name']=$user[3];
+			header('location: UserHome.php');
+		}
+		}	
+
 	}
-	elseif($user[4]=="user"){
-	header('location: UserHome.php');
+	
 	}
 		
-	
-	}else{
-		echo "invalid user";
 	}
-	
-			}
-		}
 
 
 ?>
